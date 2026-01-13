@@ -97,6 +97,12 @@ body {
     letter-spacing: -0.5px;
 }
 
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -128,6 +134,46 @@ body {
 
 .theme-toggle:active {
     transform: translateY(0);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
+
+.hamburger span {
+    width: 2rem;
+    height: 0.25rem;
+    background-color: var(--text-primary);
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+}
+
+.hamburger:hover span {
+    background-color: var(--primary-color);
+}
+
+.hamburger.active span:first-child {
+    transform: rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg);
 }
 
 .nav-link {
@@ -809,12 +855,59 @@ body {
 }
 
 @media (max-width: 768px) {
+    .nav-container {
+        position: relative;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
     .nav-menu {
-        gap: 1.5rem;
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background-color: var(--bg-primary);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: var(--shadow-lg);
+        border-top: 1px solid var(--border-color);
+        padding: 2rem 0;
+        gap: 0;
+        z-index: 999;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+    }
+
+    [data-theme="dark"] .nav-menu {
+        background-color: var(--bg-primary);
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-menu li {
+        width: 100%;
+        padding: 0;
     }
 
     .nav-link {
-        font-size: 0.875rem;
+        display: block;
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-link:hover {
+        background-color: var(--bg-secondary);
+    }
+
+    .nav-link::after {
+        display: none;
     }
 
     .hero-section {
@@ -864,10 +957,6 @@ body {
 @media (max-width: 480px) {
     .nav-container {
         padding: 0 1rem;
-    }
-
-    .nav-menu {
-        gap: 1rem;
     }
 
     .logo-text {

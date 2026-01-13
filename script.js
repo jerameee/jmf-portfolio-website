@@ -9,6 +9,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 top: offsetTop,
                 behavior: 'smooth'
             });
+            
+            // Close mobile menu if open
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
+            if (hamburger && navMenu && navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
         }
     });
 });
@@ -63,6 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Dark mode toggle functionality
     initThemeToggle();
+    
+    // Hamburger menu functionality
+    initHamburgerMenu();
 });
 
 // Dark mode toggle functionality
@@ -93,6 +104,39 @@ function initThemeToggle() {
             
             // Update button icon
             themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+    }
+}
+
+// Hamburger menu functionality
+function initHamburgerMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on a nav link (for mobile)
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Close menu when clicking outside (optional)
+        document.addEventListener('click', (e) => {
+            if (navMenu.classList.contains('active') && 
+                !navMenu.contains(e.target) && 
+                !hamburger.contains(e.target) &&
+                window.innerWidth <= 768) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
         });
     }
 }
