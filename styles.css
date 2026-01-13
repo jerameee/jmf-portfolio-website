@@ -108,6 +108,8 @@ body {
     list-style: none;
     gap: 2.5rem;
     align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 .theme-toggle {
@@ -146,7 +148,8 @@ body {
     border: none;
     cursor: pointer;
     padding: 0;
-    z-index: 10;
+    z-index: 1001;
+    position: relative;
 }
 
 .hamburger span {
@@ -871,7 +874,7 @@ body {
         background-color: var(--bg-primary);
         width: 100%;
         text-align: center;
-        transition: 0.3s;
+        transition: left 0.3s ease;
         box-shadow: var(--shadow-lg);
         border-top: 1px solid var(--border-color);
         padding: 2rem 0;
@@ -879,14 +882,15 @@ body {
         z-index: 999;
         max-height: calc(100vh - 70px);
         overflow-y: auto;
-    }
-
-    [data-theme="dark"] .nav-menu {
-        background-color: var(--bg-primary);
+        display: flex;
     }
 
     .nav-menu.active {
         left: 0;
+    }
+
+    [data-theme="dark"] .nav-menu {
+        background-color: var(--bg-primary);
     }
 
     .nav-menu li {
